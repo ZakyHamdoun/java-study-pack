@@ -1,2 +1,3 @@
 # java-study-pack
-A Java Study pack organized in a way I like.
+
+Your study pack for interviews. (Yeah I'm going to write a better README later on).
