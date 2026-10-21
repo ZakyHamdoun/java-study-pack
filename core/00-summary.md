@@ -23,20 +23,20 @@ Interview rule of thumb: start with `ArrayList`, `HashMap`, `HashSet`, and `Arra
 
 ### 1.2. Time complexity of collections
 
-Let \\(n\\) be the number of elements. These are typical complexities, not unconditional guarantees.
+Let \(n\) be the number of elements. These are typical complexities, not unconditional guarantees.
 
 | Collection      | Access by index  | Search / contains         | Insert                              | Delete                              | Important caveat                                                       |
 | --------------- | ---------------- | ------------------------- | ----------------------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
-| `ArrayList`     | \\(O(1)\\)       | \\(O(n)\\)                | Append: amortized \\(O(1)\\)        | End: \\(O(1)\\); middle: \\(O(n)\\) | Shifting elements makes middle operations expensive                    |
-| `LinkedList`    | \\(O(n)\\)       | \\(O(n)\\)                | At a known node/end: \\(O(1)\\)     | At a known node/end: \\(O(1)\\)     | Finding the position still costs \\(O(n)\\)                            |
-| `ArrayDeque`    | Not supported    | \\(O(n)\\)                | At either end: amortized \\(O(1)\\) | At either end: amortized \\(O(1)\\) | No null elements; no indexed access                                    |
-| `HashSet`       | N/A              | Average \\(O(1)\\)        | Average \\(O(1)\\)                  | Average \\(O(1)\\)                  | Worst case can be \\(O(n)\\)                                           |
-| `LinkedHashSet` | N/A              | Average \\(O(1)\\)        | Average \\(O(1)\\)                  | Average \\(O(1)\\)                  | Preserves insertion order                                              |
-| `TreeSet`       | N/A              | \\(O(\log n)\\)           | \\(O(\log n)\\)                     | \\(O(\log n)\\)                     | Sorted order                                                           |
-| `HashMap`       | N/A              | Average \\(O(1)\\) by key | Average \\(O(1)\\)                  | Average \\(O(1)\\)                  | Worst case can degrade; collision handling is implementation-dependent |
-| `LinkedHashMap` | N/A              | Average \\(O(1)\\) by key | Average \\(O(1)\\)                  | Average \\(O(1)\\)                  | Maintains encounter order                                              |
-| `TreeMap`       | N/A              | \\(O(\log n)\\) by key    | \\(O(\log n)\\)                     | \\(O(\log n)\\)                     | Keys remain sorted                                                     |
-| `PriorityQueue` | Head: \\(O(1)\\) | \\(O(n)\\)                | \\(O(\log n)\\)                     | Head removal: \\(O(\log n)\\)       | Removing an arbitrary element is \\(O(n)\\)                            |
+| `ArrayList`     | \(O(1)\)       | \(O(n)\)                | Append: amortized \(O(1)\)        | End: \(O(1)\); middle: \(O(n)\) | Shifting elements makes middle operations expensive                    |
+| `LinkedList`    | \(O(n)\)       | \(O(n)\)                | At a known node/end: \(O(1)\)     | At a known node/end: \(O(1)\)     | Finding the position still costs \(O(n)\)                            |
+| `ArrayDeque`    | Not supported    | \(O(n)\)                | At either end: amortized \(O(1)\) | At either end: amortized \(O(1)\) | No null elements; no indexed access                                    |
+| `HashSet`       | N/A              | Average \(O(1)\)        | Average \(O(1)\)                  | Average \(O(1)\)                  | Worst case can be \(O(n)\)                                           |
+| `LinkedHashSet` | N/A              | Average \(O(1)\)        | Average \(O(1)\)                  | Average \(O(1)\)                  | Preserves insertion order                                              |
+| `TreeSet`       | N/A              | \(O(\log n)\)           | \(O(\log n)\)                     | \(O(\log n)\)                     | Sorted order                                                           |
+| `HashMap`       | N/A              | Average \(O(1)\) by key | Average \(O(1)\)                  | Average \(O(1)\)                  | Worst case can degrade; collision handling is implementation-dependent |
+| `LinkedHashMap` | N/A              | Average \(O(1)\) by key | Average \(O(1)\)                  | Average \(O(1)\)                  | Maintains encounter order                                              |
+| `TreeMap`       | N/A              | \(O(\log n)\) by key    | \(O(\log n)\)                     | \(O(\log n)\)                     | Keys remain sorted                                                     |
+| `PriorityQueue` | Head: \(O(1)\) | \(O(n)\)                | \(O(\log n)\)                     | Head removal: \(O(\log n)\)       | Removing an arbitrary element is \(O(n)\)                            |
 
 For `HashMap` and `HashSet`, average constant-time operations assume a reasonable hash distribution and well-behaved `hashCode()` and `equals()` implementations.
 
@@ -44,14 +44,14 @@ For `HashMap` and `HashSet`, average constant-time operations assume a reasonabl
 
 | Requirement                       | Best starting point               | Why                                            |
 | --------------------------------- | --------------------------------- | ---------------------------------------------- |
-| Fast lookup by ID                 | `HashMap`                         | Average \\(O(1)\\) key lookup                  |
+| Fast lookup by ID                 | `HashMap`                         | Average \(O(1)\) key lookup                  |
 | Keep unique values                | `HashSet`                         | Efficient membership checks                    |
 | Preserve insertion order          | `LinkedHashMap` / `LinkedHashSet` | Predictable iteration                          |
-| Keep keys sorted                  | `TreeMap`                         | \\(O(\log n)\\) updates and sorted traversal   |
-| Frequently access by index        | `ArrayList`                       | \\(O(1)\\) indexing                            |
+| Keep keys sorted                  | `TreeMap`                         | \(O(\log n)\) updates and sorted traversal   |
+| Frequently access by index        | `ArrayList`                       | \(O(1)\) indexing                            |
 | FIFO processing                   | `ArrayDeque`                      | Efficient queue operations                     |
 | LIFO stack                        | `ArrayDeque`                      | Prefer over legacy `Stack`                     |
-| Repeatedly extract minimum        | `PriorityQueue`                   | \\(O(\log n)\\) removal of the head            |
+| Repeatedly extract minimum        | `PriorityQueue`                   | \(O(\log n)\) removal of the head            |
 | Many readers, few writers         | `CopyOnWriteArrayList`            | Snapshot iteration without reader-side locking |
 | Shared concurrent key-value store | `ConcurrentHashMap`               | Designed for concurrent operations             |
 | Sorted range queries              | `TreeMap` / `TreeSet`             | `subMap`, `subSet`, `floor`, `ceiling`         |
@@ -219,24 +219,24 @@ Example interview question: Is `volatile int counter; counter++;` thread-safe? N
 
 ## 4. Sorting algorithms and Big-O complexity
 
-Let \\(n\\) be the number of elements. For sorting, interviewers commonly ask about average/worst-case time, extra space, stability, and when the algorithm is useful.
+Let \(n\) be the number of elements. For sorting, interviewers commonly ask about average/worst-case time, extra space, stability, and when the algorithm is useful.
 
 ### 4.1. Sorting algorithms comparison
 
 | Algorithm      | Best time        | Average time     | Worst time       | Extra space                             | Stable?                           |
 | -------------- | ---------------- | ---------------- | ---------------- | --------------------------------------- | --------------------------------- |
-| Bubble sort    | \\(O(n)\\)\*     | \\(O(n^2)\\)     | \\(O(n^2)\\)     | \\(O(1)\\)                              | Yes, with standard implementation |
-| Selection sort | \\(O(n^2)\\)     | \\(O(n^2)\\)     | \\(O(n^2)\\)     | \\(O(1)\\)                              | Usually no                        |
-| Insertion sort | \\(O(n)\\)       | \\(O(n^2)\\)     | \\(O(n^2)\\)     | \\(O(1)\\)                              | Yes                               |
-| Merge sort     | \\(O(n\log n)\\) | \\(O(n\log n)\\) | \\(O(n\log n)\\) | \\(O(n)\\)\*\*                          | Yes                               |
-| Quicksort      | \\(O(n\log n)\\) | \\(O(n\log n)\\) | \\(O(n^2)\\)     | Typically \\(O(\log n)\\) average stack | Usually no                        |
-| Heapsort       | \\(O(n\log n)\\) | \\(O(n\log n)\\) | \\(O(n\log n)\\) | \\(O(1)\\) auxiliary\*\*\*              | No                                |
-| Counting sort  | \\(O(n+k)\\)     | \\(O(n+k)\\)     | \\(O(n+k)\\)     | \\(O(n+k)\\)                            | Can be stable                     |
-| Radix sort     | \\(O(d(n+k))\\)  | \\(O(d(n+k))\\)  | \\(O(d(n+k))\\)  | Usually \\(O(n+k)\\)                    | Yes, with stable digit passes     |
+| Bubble sort    | \(O(n)\)\*     | \(O(n^2)\)     | \(O(n^2)\)     | \(O(1)\)                              | Yes, with standard implementation |
+| Selection sort | \(O(n^2)\)     | \(O(n^2)\)     | \(O(n^2)\)     | \(O(1)\)                              | Usually no                        |
+| Insertion sort | \(O(n)\)       | \(O(n^2)\)     | \(O(n^2)\)     | \(O(1)\)                              | Yes                               |
+| Merge sort     | \(O(n\log n)\) | \(O(n\log n)\) | \(O(n\log n)\) | \(O(n)\)\*\*                          | Yes                               |
+| Quicksort      | \(O(n\log n)\) | \(O(n\log n)\) | \(O(n^2)\)     | Typically \(O(\log n)\) average stack | Usually no                        |
+| Heapsort       | \(O(n\log n)\) | \(O(n\log n)\) | \(O(n\log n)\) | \(O(1)\) auxiliary\*\*\*              | No                                |
+| Counting sort  | \(O(n+k)\)     | \(O(n+k)\)     | \(O(n+k)\)     | \(O(n+k)\)                            | Can be stable                     |
+| Radix sort     | \(O(d(n+k))\)  | \(O(d(n+k))\)  | \(O(d(n+k))\)  | Usually \(O(n+k)\)                    | Yes, with stable digit passes     |
 
-\* Bubble sort achieves \\(O(n)\\) best-case time with an early-exit optimization. \*\*Standard array-based merge sort uses \\(O(n)\\) auxiliary storage. \*\*\*Heapsort's usual in-place implementation uses constant auxiliary storage, excluding input storage.
+\* Bubble sort achieves \(O(n)\) best-case time with an early-exit optimization. \*\*Standard array-based merge sort uses \(O(n)\) auxiliary storage. \*\*\*Heapsort's usual in-place implementation uses constant auxiliary storage, excluding input storage.
 
-Here, \\(k\\) is the counting-sort key range or radix base, and \\(d\\) is the number of digits/passes in radix sort.
+Here, \(k\) is the counting-sort key range or radix base, and \(d\) is the number of digits/passes in radix sort.
 
 ### 4.2. When to use each algorithm
 
@@ -247,7 +247,7 @@ Here, \\(k\\) is the counting-sort key range or radix base, and \\(d\\) is the n
 | Insertion sort | Small or nearly sorted arrays                          | Quadratic worst case                                       |
 | Merge sort     | Stable sorting and predictable worst-case time         | Extra memory for arrays                                    |
 | Quicksort      | Fast general in-memory partition sorting               | Bad pivot choices can produce quadratic time               |
-| Heapsort       | Need worst-case \\(O(n\log n)\\) with in-place sorting | Not stable; locality can be worse than quicksort           |
+| Heapsort       | Need worst-case \(O(n\log n)\) with in-place sorting | Not stable; locality can be worse than quicksort           |
 | Counting sort  | Integers with a small, manageable key range            | Memory cost depends on the range                           |
 | Radix sort     | Fixed-width integers or suitable strings               | Requires multiple passes and suitable digit representation |
 
@@ -256,7 +256,7 @@ Here, \\(k\\) is the counting-sort key range or radix base, and \\(d\\) is the n
 | Java API                        | Interview detail                                                                     |
 | ------------------------------- | ------------------------------------------------------------------------------------ |
 | `Arrays.sort(int[])`            | Uses an implementation optimized for primitive arrays; commonly Dual-Pivot Quicksort |
-| `Arrays.sort(Object[])`         | Stable sort with guaranteed \\(O(n\log n)\\) comparisons under the API contract      |
+| `Arrays.sort(Object[])`         | Stable sort with guaranteed \(O(n\log n)\) comparisons under the API contract      |
 | `Collections.sort(list)`        | Delegates to list sorting; stable sorting is guaranteed                              |
 | `list.sort(comparator)`         | Sorts using natural ordering or a provided comparator                                |
 | `Comparator.comparing(...)`     | Builds a comparator from a key extractor                                             |
@@ -280,15 +280,15 @@ List<String> users = List.of("Zoe", "Alex", "Mia");
 
 | Complexity       | Typical example                               |
 | ---------------- | --------------------------------------------- |
-| \\(O(1)\\)       | Array index access                            |
-| \\(O(\log n)\\)  | Binary search in a sorted random-access array |
-| \\(O(n)\\)       | Linear search                                 |
-| \\(O(n\log n)\\) | Efficient comparison sorting                  |
-| \\(O(n^2)\\)     | Two nested loops over the same input          |
-| \\(O(2^n)\\)     | Enumerating all subsets                       |
-| \\(O(n!)\\)      | Enumerating all permutations                  |
+| \(O(1)\)       | Array index access                            |
+| \(O(\log n)\)  | Binary search in a sorted random-access array |
+| \(O(n)\)       | Linear search                                 |
+| \(O(n\log n)\) | Efficient comparison sorting                  |
+| \(O(n^2)\)     | Two nested loops over the same input          |
+| \(O(2^n)\)     | Enumerating all subsets                       |
+| \(O(n!)\)      | Enumerating all permutations                  |
 
-For binary search, the input must be sorted, and a random-access structure such as an array is preferable for the usual \\(O(\log n)\\) runtime.
+For binary search, the input must be sorted, and a random-access structure such as an array is preferable for the usual \(O(\log n)\) runtime.
 
 ## 5. Multithreading and concurrency
 
